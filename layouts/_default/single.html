@@ -9,7 +9,7 @@
     <section>
       <h2 class="post">{{ .Title }}</h2>
       {{ .Content }}
-      {{ if ne .Section "pages" }}
+      {{ if or (eq .Section "posts") (eq .Section "projects") }}
       <div class="post-date">
         <span class="g time">{{.Date.Format "January 2, 2006"}} </span> &#8729;
         {{ $taxonomy := "tags" }} {{ with .Param $taxonomy }}
@@ -21,6 +21,7 @@
       </div>
       {{ end }}
     </section>
+    
     {{ if eq .Section "posts" }}
     {{ if eq .Site.Params.comments.enabled true }}
     <div id="comments">
@@ -28,6 +29,8 @@
     </div>
     {{ end }}
     {{ end }}
+  
+    {{ partial "footer.html" . }}
   </div>
 </main>
 </body>
